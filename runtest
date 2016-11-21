@@ -1,13 +1,14 @@
 #!/bin/bash
 
 DIRECTORY="./test/"
+SECDIR="folder"
 PREFIXES=(15000 15100 15200)
 EXAMPLE_SUFFIX=".good"
 OUTPUT_SUFFIX=".txt"
 
 for file in "${PREFIXES[@]}"
 do
-    rm $file$OUTPUT_SUFFIX
+    rm -f $file$OUTPUT_SUFFIX
 done
 
 awk -f ./src/script.awk < ./test/file_in
@@ -16,4 +17,19 @@ awk -f ./src/script.awk < ./test/file_in
 for file in "${PREFIXES[@]}"
 do
     diff $DIRECTORY$file$EXAMPLE_SUFFIX $file$OUTPUT_SUFFIX
+done
+
+
+for file in "${PREFIXES[@]}"
+do
+    rm -f "./"$SECDIR"/"$file$OUTPUT_SUFFIX
+done
+
+
+awk -v folder=$SECDIR -f ./src/script.awk ./test/file_in
+
+
+for file in "${PREFIXES[@]}"
+do
+    diff $DIRECTORY$file$EXAMPLE_SUFFIX "./"$SECDIR"/"$file$OUTPUT_SUFFIX
 done
