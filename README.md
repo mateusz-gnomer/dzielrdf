@@ -9,3 +9,7 @@ It works only for one atoms pair.
 ./dzielrdf.sh file.rdf ./destination
 
 destination must exist
+
+Installation:
+move dzielrdf.sh to a directory you have in your PATH.
+Be sure to update its contents to point to script.awk
